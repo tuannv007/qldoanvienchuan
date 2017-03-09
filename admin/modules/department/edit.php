@@ -12,14 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// validate form later
 
-	dbUpdate('khoa', $id, [
-		'makhoa' => $makhoa,
-		'tenkhoa' => $tenkhoa,
-	]);
-
-
-	redirect(url('admin/index.php?module=department&action=index'));
-}	
+		if (dbCheckExits('khoa','makhoa',$makhoa) < 0) {
+			dbUpdate('khoa', $id, [
+			'makhoa' => $makhoa,
+			'tenkhoa' => $tenkhoa,
+			]);
+			redirect(url('admin/index.php?module=department&action=index'));
+		}
+		else 
+		{
+			echo "Ma khoa da ton tai";
+		}
+	}	
 
 ?>
 <div class="row">

@@ -36,7 +36,7 @@ $departments = dbGetAll('khoa');
 	    				<td><?php echo $department['makhoa']; ?></td>
 	    				<td><?php echo $department['tenkhoa']; ?></td>
 	    				<td>
-                            <a href="<?php echo url('admin/index.php?module=department&action=edit&kid=' . $department); ?>" class="btn btn-default btn-xs">
+                            <a href="<?php echo url('admin/index.php?module=department&action=edit&kid=' . $department['id']); ?>" class="btn btn-default btn-xs">
                                 <i class="fa fa-edit"></i>
                             </a>               
                         </td>

@@ -63,7 +63,7 @@ function dbCreate($tableName, array $data)
 	$columns = implode(',', $columns);
 	$values = implode(',', $values);
 
-	$sql = "insert into $tableName($columns) values($values)";
+	echo $sql = "insert into $tableName($columns) values($values)";
 	return mysqli_query($link, $sql);
 }
 
@@ -88,4 +88,11 @@ function dbDelete($tableName, $id, $key = 'id')
 	$sql = "delete from $tableName where $key = '$id'";
 
 	return mysqli_query($link, $sql);
+}
+function dbCheckExits($tableName,$key,$value)
+{
+	global $link;
+	echo $sql = "select * from $tableName where $key = '$value'";
+	$result = mysqli_query($link, $sql);
+	return mysqli_num_rows($result) ;
 }

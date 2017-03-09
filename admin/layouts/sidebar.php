@@ -22,15 +22,7 @@
 	            	<i class="fa fa-edit fa-fw"></i> Quan Ly Sinh Vien
             	</a>
 	        </li>
-	        <li>
-	            <a href="addfaculty.php"><i class="fa fa-edit fa-fw"></i> Quan Ly Nguoi Dung</a>
-	        </li>
-	        <li>
-	            <a href="addfaculty.php"><i class="fa fa-edit fa-fw"></i> Quan Ly Sinh Vien</a>
-	        </li>
-	         <li>
-	            <a href="addfaculty.php"><i class="fa fa-edit fa-fw"></i> Quan Ly Doan Phi</a>
-	        </li>
+	      
 	    </ul>
 	</div>
 </div>
