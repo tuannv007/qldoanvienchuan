@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// validate form later
 
-		if (dbCheckExits('khoa','makhoa',$makhoa) < 0) {
+		if (dbCheckExits('khoa','makhoa',$makhoa)) {
 			dbUpdate('khoa', $id, [
 			'makhoa' => $makhoa,
 			'tenkhoa' => $tenkhoa,

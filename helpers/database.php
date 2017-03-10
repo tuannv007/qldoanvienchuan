@@ -100,3 +100,14 @@ function dbCheckExits($tableName,$key,$value)
 	 } 
 	 else return true;
 }
+function getDataWithSelection($tableName,$makhoa,$nienkhoa){
+	global $link;
+	$sql = "select * from $tableName where makhoa = '$makhoa' and nienkhoa = '$nienkhoa'";
+	$result = mysqli_query($link, $sql);
+
+	while ($item = mysqli_fetch_assoc($result)) {
+		$items[] = $item;
+	}
+
+	return isset($items) ? $items : [];
+}

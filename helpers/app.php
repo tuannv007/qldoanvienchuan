@@ -16,3 +16,10 @@ function pre($data)
 	print_r($data);
 	echo '</pre>'; die;
 }
+
+function current_url($https = false)
+{
+	$protocal = $https === true ? 'https' : 'http';
+
+	return "$protocal://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+}
