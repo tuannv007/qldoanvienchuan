@@ -111,3 +111,10 @@ function getDataWithSelection($tableName,$makhoa,$nienkhoa){
 
 	return isset($items) ? $items : [];
 }
+function isEmail($email){
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	  return true;
+	} else {
+	  return false;
+	}
+}

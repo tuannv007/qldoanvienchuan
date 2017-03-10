@@ -10,8 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$makhoa = isset($_POST['makhoa']) ? $_POST['makhoa'] : '';
 	$tenkhoa = isset($_POST['tenkhoa']) ? $_POST['tenkhoa'] : '';
 
-	// validate form later
-
 		if (dbCheckExits('khoa','makhoa',$makhoa)) {
 			dbUpdate('khoa', $id, [
 			'makhoa' => $makhoa,

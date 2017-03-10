@@ -9,10 +9,46 @@
 	 $password = isset($_POST['password']) ? $_POST['password'] : '';
 	 $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 	 $makhoa = isset($_POST['makhoa']) ? $_POST['makhoa'] : '';
-	 $password = md5($password);
 	 $data= null;
 	 $error = null;
-	if ($password == md5($confirm_password)) {
+
+	 if (!isEmail($email)) {
+	 	echo json_encode([
+	            'code' => 422,
+	            'message'=> 'error',
+	            'error' => 'email invalidate',
+	            'data' => $data,
+            ]);
+	 	return;
+	 }
+	  if (md5($password) == '') {
+	 	echo json_encode([
+	            'code' => 422,
+	            'message'=> 'error',
+	            'error' => 'password not empty',
+	            'data' => $data,
+            ]);
+	 	return;
+	 }
+	 if (strlen($password) < 6) {
+	 	echo json_encode([
+	            'code' => 422,
+	            'message'=> 'error',
+	            'error' => 'length min password 6 charater',
+	            'data' => $data,
+            ]);
+	 	return;
+	 }
+	 if(md5($confirm_password) == '') {
+	 	echo json_encode([
+	            'code' => 422,
+	            'message'=> 'error',
+	            'error' => 'confirm_password not empty',
+	            'data' => $data,
+            ]);
+	 	return;
+	 }
+	if (md5($password) == md5($confirm_password)) {
 	 if (dbCheckExits('admin','email',$email))
 		{
 			dbCreate('admin', [
@@ -49,5 +85,7 @@
 	            'data' => $data,
             ]);
 	}
+
+	
 	
 }

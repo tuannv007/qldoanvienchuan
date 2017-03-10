@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     else 
     {
-        if (trim($email) == "") {
+        if ($email== "") {
             echo json_encode([
            'code' => 442,
            'message'=>'error',
