@@ -23,7 +23,7 @@
             	</a>
 	        </li>
 	        <li>
-	             <a href="<?php echo url('admin/index.php?module=managerstudent&action=index'); ?>">
+	             <a href="<?php echo url('admin/index.php?module=student&action=index'); ?>">
 	            	<i class="fa fa-edit fa-fw"></i> Quản Lý Sinh viên
             	</a>
 	        </li>

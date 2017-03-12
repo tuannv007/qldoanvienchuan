@@ -2,7 +2,7 @@
 
 
 define('DB_HOSTNAME', 'localhost');
-define('DB_DATABASE', 'quanlydoanvien');
+define('DB_DATABASE', 'quanlydoanvien3');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
@@ -15,13 +15,15 @@ function dbCheckLogin($email, $password)
 	global $link;
 
 	//
-	$sql = "select * from admin where email = '$email' and password = '$password'";
+	echo $sql = "select * from admin where email = '$email' and password = '$password'";
 	$result = mysqli_query($link, $sql);
 
 
 	if (mysqli_num_rows($result) > 0) {
+		echo 'dung';
 		return mysqli_fetch_assoc($result);
 	} else {
+		echo 'sai';
 		return false;
 	}
 }
@@ -63,7 +65,7 @@ function dbCreate($tableName, array $data)
 	$columns = implode(',', $columns);
 	$values = implode(',', $values);
 
-	 $sql = "insert into $tableName($columns) values($values)";
+	  $sql = "insert into $tableName($columns) values($values)";
 	return mysqli_query($link, $sql);
 }
 
@@ -77,10 +79,21 @@ function dbUpdate($tableName, $id, array $data, $key = 'id')
 
 	$data = implode(', ', $data);
 
-	$sql = "update $tableName set $data where $key = '$id'";
+	 $sql = "update $tableName set $data where $key = $id";
 	return mysqli_query($link, $sql);
-}
 
+}
+function dbUpdateSUbkect($malop,$tenlop,$makhoa,$nienkhoa,$id){
+	global $link;
+	 $sql = "update  lop set malop = '$malop' , tenlop = '$tenlop' , makhoa = $makhoa,nienkhoa = $nienkhoa where id = $id";
+	$result = mysqli_query($link, $sql);
+
+	while ($item = mysqli_fetch_assoc($result)) {
+		$items[] = $item;
+	}
+
+	return isset($items) ? $items : [];
+}
 function dbDelete($tableName, $id, $key = 'id')
 {
 	global $link;
@@ -100,9 +113,9 @@ function dbCheckExits($tableName,$key,$value)
 	 } 
 	 else return true;
 }
-function getDataWithSelection($tableName,$makhoa,$nienkhoa){
+function getDataWithSelection($nienkhoa,$makhoa){
 	global $link;
-	$sql = "select * from $tableName where makhoa = '$makhoa' and nienkhoa = '$nienkhoa'";
+	echo $sql = "select lop.id, malop,tenlop,tenkhoa,tennienkhoa from lop,nienkhoa,khoa where lop.nienkhoa= $nienkhoa and lop.makhoa = $makhoa and lop.makhoa = khoa.id";
 	$result = mysqli_query($link, $sql);
 
 	while ($item = mysqli_fetch_assoc($result)) {
@@ -117,4 +130,15 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	} else {
 	  return false;
 	}
+}
+function getSubjectIntDepartment($makhoa,$nienkhoa,$malop){
+	global $link;
+	$sql = "select * from sinhvien where makhoa = '$makhoa' and nienkhoa = '$nienkhoa' and malop = '$malop'";
+	$result = mysqli_query($link, $sql);
+
+	while ($item = mysqli_fetch_assoc($result)) {
+		 $items[] = $item;
+	}
+
+	return isset($items) ? $items : [];
 }

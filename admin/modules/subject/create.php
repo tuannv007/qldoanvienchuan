@@ -1,10 +1,10 @@
 <?php 	
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$malop = isset($_POST['malop']) ? $_POST['malop'] : '';
-	$tenlop = isset($_POST['tenlop']) ? $_POST['tenlop'] : '';
-	$makhoa = isset($_POST['makhoa']) ? $_POST['makhoa'] : '';
-	$nienkhoa = isset($_POST['nienkhoa']) ? $_POST['nienkhoa'] : '';
+	echo $malop = isset($_POST['malop']) ? $_POST['malop'] : '';
+	echo $tenlop = isset($_POST['tenlop']) ? $_POST['tenlop'] : '';
+	echo $makhoa = isset($_POST['makhoa']) ? $_POST['makhoa'] : '';
+	echo $nienkhoa = isset($_POST['nienkhoa']) ? $_POST['nienkhoa'] : '';
 	// validate form later
 
 	dbCreate('lop', [
@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	                        $sql = "SELECT *FROM khoa";
 	                        $query = mysqli_query($link, $sql);
 	                        while ($rowKhoa = mysqli_fetch_array($query)) {
-	                            $selected = $rowKhoa['makhoa'] == $makhoa ? 'selected' : '';
+	                            $selected = $rowKhoa['id'] == $makhoa ? 'selected' : '';
 	                    ?>
-	                        <option value="<?php echo $rowKhoa['makhoa']; ?>" <?php echo $selected; ?>>
+	                        <option value="<?php echo $rowKhoa['id']; ?>" <?php echo $selected; ?>>
 	                            <?php echo $rowKhoa['tenkhoa']; ?>
 	                        </option>
 	                    <?php
@@ -74,9 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	                        $sql = "SELECT *FROM nienkhoa";
 	                        $query = mysqli_query($link, $sql);
 	                        while ($rowKhoa = mysqli_fetch_array($query)) {
-	                            $selected = $rowKhoa['manienkhoa'] == $nienkhoa ? 'selected' : '';
+	                            $selected = $rowKhoa['id'] == $nienkhoa ? 'selected' : '';
 	                    ?>
-	                        <option value="<?php echo $rowKhoa['manienkhoa']; ?>" <?php echo $selected; ?>>
+	                        <option value="<?php echo $rowKhoa['id']; ?>" <?php echo $selected; ?>>
 	                            <?php echo $rowKhoa['tennienkhoa']; ?>
 	                        </option>
 	                    <?php

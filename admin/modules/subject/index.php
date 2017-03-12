@@ -5,7 +5,7 @@ $params = json_encode($_GET);
 
 $makhoa = isset($_GET['makhoa']) ? $_GET['makhoa'] : '';
 $nienkhoa = isset($_GET['nienkhoa']) ? $_GET['nienkhoa'] : '';
-$subjects = getDataWithSelection('lop',$makhoa,$nienkhoa);
+$subjects = getDataWithSelection($nienkhoa,$makhoa);
      
 ?>
 <!DOCTYPE html>
@@ -40,12 +40,12 @@ $subjects = getDataWithSelection('lop',$makhoa,$nienkhoa);
                 Khoa
                 <select class="form-control" name="makhoa">
                     <?php 
-                        $sql = "SELECT *FROM khoa";
+                        echo $sql = "SELECT *FROM khoa";
                         $query = mysqli_query($link, $sql);
                         while ($rowKhoa = mysqli_fetch_array($query)) {
-                            $selected = $rowKhoa['makhoa'] == $makhoa ? 'selected' : '';
+                            $selected = $rowKhoa['id'] == $makhoa ? 'selected' : '';
                     ?>
-                        <option value="<?php echo $rowKhoa['makhoa']; ?>" <?php echo $selected; ?>>
+                        <option value="<?php echo $rowKhoa['id']; ?>" <?php echo $selected; ?>>
                             <?php echo $rowKhoa['tenkhoa']; ?>
                         </option>
                     <?php
@@ -61,9 +61,9 @@ $subjects = getDataWithSelection('lop',$makhoa,$nienkhoa);
                         $sql = "SELECT *FROM nienkhoa";
                         $query = mysqli_query($link, $sql);
                         while ($rowKhoa = mysqli_fetch_array($query)) {
-                            $selected = $rowKhoa['manienkhoa'] == $nienkhoa ? 'selected' : '';
+                            $selected = $rowKhoa['id'] == $nienkhoa ? 'selected' : '';
                     ?>
-                        <option value="<?php echo $rowKhoa['manienkhoa']; ?>" <?php echo $selected; ?>>
+                        <option value="<?php echo $rowKhoa['id']; ?>" <?php echo $selected; ?>>
                             <?php echo $rowKhoa['tennienkhoa']; ?>
                         </option>
                     <?php
@@ -84,7 +84,7 @@ $subjects = getDataWithSelection('lop',$makhoa,$nienkhoa);
                     <th>#</th>
                     <th>Mã Lớp</th>
                     <th>Tên Lớp</th>
-                    <th>Mã Khoa</th>
+                    <th>Tên Khoa</th>
                     <th>Niên Khóa</th>
                     <th>Sửa</th>
                     <th>Xóa</th>
@@ -97,8 +97,8 @@ $subjects = getDataWithSelection('lop',$makhoa,$nienkhoa);
                         <td><?php echo $subject['id']; ?></td>
                         <td><?php echo $subject['malop']; ?></td>
                         <td><?php echo $subject['tenlop']; ?></td>
-                        <td><?php echo $subject['makhoa']; ?></td>
-                        <td><?php echo $subject['nienkhoa']; ?></td>
+                        <td><?php echo $subject['tenkhoa']; ?></td>
+                        <td><?php echo $subject['tennienkhoa']; ?></td>
                         <td>
                             <a href="<?php echo url('admin/index.php?module=subject&action=edit&kid=' . $subject['id']); ?>" class="btn btn-default btn-xs">
                                 <i class="fa fa-edit"></i>
