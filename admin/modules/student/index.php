@@ -1,13 +1,8 @@
 <?php
 
-
-$params = json_encode($_GET);
-
-$makhoa = isset($_GET['makhoa']) ? $_GET['makhoa'] : '';
-$nienkhoa = isset($_GET['nienkhoa']) ? $_GET['nienkhoa'] : '';
-$lop = isset($_GET['lop']) ? $_GET['lop'] : '';
-$students = getSubjectIntDepartment($makhoa,$nienkhoa,$lop);
-     
+    $params = json_encode($_GET);
+    $lop = isset($_GET['lop']) ? $_GET['lop'] : '';
+    $students = getSubjectIntDepartment($lop);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,9 +74,9 @@ $students = getSubjectIntDepartment($makhoa,$nienkhoa,$lop);
                         $sql = "SELECT *FROM lop";
                         $query = mysqli_query($link, $sql);
                         while ($rowLop = mysqli_fetch_array($query)) {
-                            $selected = $rowLop['malop'] == $lop ? 'selected' : '';
+                            $selected = $rowLop['id'] == $lop ? 'selected' : '';
                     ?>
-                        <option value="<?php echo $rowLop['malop']; ?>" <?php echo $selected; ?>>
+                        <option value="<?php echo $rowLop['id']; ?>" <?php echo $selected; ?>>
                             <?php echo $rowLop['tenlop']; ?>
                         </option>
                     <?php
@@ -121,7 +116,13 @@ $students = getSubjectIntDepartment($makhoa,$nienkhoa,$lop);
                         <td><?php echo $student['diachi']; ?></td>
                         <td><?php echo $student['sdt']; ?></td>
                         <td><?php echo $student['ngaysinh']; ?></td>
-                        <td><?php echo $student['gioitinh']; ?></td>
+                        <td><?php
+                            if ($student['gioitinh'] == 1) {
+                                 echo 'Nam';
+                             } 
+                             else {
+                                echo 'Nu';
+                             }?></td>
                         <td>
                             <a href="<?php echo url('admin/index.php?module=student&action=edit&kid=' . $student['id']); ?>" class="btn btn-default btn-xs">
                                 <i class="fa fa-edit"></i>

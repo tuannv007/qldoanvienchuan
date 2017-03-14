@@ -1,11 +1,9 @@
 <?php
 
-
-$params = json_encode($_GET);
-
-$makhoa = isset($_GET['makhoa']) ? $_GET['makhoa'] : '';
-$nienkhoa = isset($_GET['nienkhoa']) ? $_GET['nienkhoa'] : '';
-$subjects = getDataWithSelection($nienkhoa,$makhoa);
+    $params = json_encode($_GET);
+    $makhoa = isset($_GET['makhoa']) ? $_GET['makhoa'] : '';
+    $nienkhoa = isset($_GET['nienkhoa']) ? $_GET['nienkhoa'] : '';
+    $subjects = getDataWithSelection($nienkhoa,$makhoa);
      
 ?>
 <!DOCTYPE html>

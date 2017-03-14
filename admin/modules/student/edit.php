@@ -1,52 +1,40 @@
 <?php 	
+echo $id = isset($_GET['kid']) ? $_GET['kid'] : 0;
+$subject = dbFind('sinhvien', $id);
+$submited = false;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$masv = isset($_POST['masv']) ? $_POST['masv'] : '';
-	$hoten = isset($_POST['hoten']) ? $_POST['hoten'] : '';
-	$diachi = isset($_POST['diachi']) ? $_POST['diachi'] : '';
-	$ngaysinh = isset($_POST['ngaysinh']) ? $_POST['ngaysinh'] : '';
-	$sdt = isset($_POST['sdt']) ? $_POST['sdt'] : '';
-	$gioitinh = isset($_POST['gioitinh']) ? $_POST['gioitinh'] : '';
-	$lop = isset($_POST['malop']) ? $_POST['malop'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+	$submited = true;
+	echo $masv = isset($_POST['masv']) ? $_POST['masv'] : '';
+	echo $hoten = isset($_POST['hoten']) ? $_POST['hoten'] : '';
+	echo $diachi = isset($_POST['diachi']) ? $_POST['diachi'] : '';
+	echo $ngaysinh = isset($_POST['ngaysinh']) ? $_POST['ngaysinh'] : '';
+	echo $gioitinh = isset($_POST['gioitinh']) ? $_POST['gioitinh'] : '';
+	echo $malop = isset($_POST['malop']) ? $_POST['malop'] : '';
+
 	// validate form later
-    if ($gioitinh == 'Nam') {
-        $gioitinh = 1;
-    }else{
-        $gioitinh =0;
-    }
-	$sinhvienID = dbCreateGetID('sinhvien', [
-		'masv' => $masv,
-		'hoten' => $hoten,
-		'diachi' => $diachi,
-        'email' => $email,
-		'ngaysinh' => $ngaysinh,
-		'sdt' => $sdt,
-		'gioitinh' => $gioitinh,
-		'malop' => $lop,
-	]);
+        if ($gioitinh == 'Nam') {
+            $gioitinh = 1;
+        }else $gioitinh = 0;
+		if (dbCheckExits('sinhvien','masv',$masv)) {
+			updateStudent($masv,$hoten,$diachi,$ngaysinh,$gioitinh,$malop,$id);
+			redirect(url('admin/index.php?module=student&action=index'));
+		}
+		else 
+		{
+			echo "Ma khoa da ton tai";
+		}
+	}	
 
-    
-    $doanphiID = dbGet("select id from doanphi where namdong = " . date('Y'))[0]['id'];
-
-    dbCreate('sinhvien_doanphi', [
-        'sinhvien_id' => $sinhvienID,
-        'doanphi_id' => $doanphiID,
-    ]);
-
-
-    redirect(url('admin/index.php?module=student&action=index'));
-}
-
-?>
+?> 
 <div class="row">
     <div class="col-lg-6">
-        <h1 class="page-header">Thêm mới Sinh vien</h1>
+        <h1 class="page-header">Chỉnh sửa lớp</h1>
     </div>
     <!-- /.col-lg-12 -->
     <div class="col-lg-6">
     	<div class="text-right">
-    		<a href="<?php echo url('admin/index.php?module=student&action=index') ?>" class="btn btn-default">
+    		<a href="<?php echo url('admin/index.php?module=subject&action=index') ?>" class="btn btn-default">
     			Quay lại
     		</a>
     	</div>
@@ -70,10 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<label>Dia chi</label>
 					 <textarea class="form-control" required rows="5" name="diachi"></textarea>
 				</div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" required name="email" placeholder="Email">
-                </div>
+
 				<div class="form-group">
 					<label>Ngay sinh</label>
 					<input class="form-control" required type="date" name="ngaysinh" placeholder="Ngay Sinh">

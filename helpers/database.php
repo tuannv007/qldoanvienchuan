@@ -15,7 +15,7 @@ function dbCheckLogin($email, $password)
 	global $link;
 
 	//
-	echo $sql = "select * from admin where email = '$email' and password = '$password'";
+	$sql = "select * from admin where email = '$email' and password = '$password'";
 	$result = mysqli_query($link, $sql);
 
 
@@ -115,10 +115,10 @@ function dbCheckExits($tableName,$key,$value)
 }
 function getDataWithSelection($nienkhoa,$makhoa){
 	global $link;
-	echo $sql = "select lop.id, malop,tenlop,tenkhoa,tennienkhoa from lop,nienkhoa,khoa where lop.nienkhoa= $nienkhoa and lop.makhoa = $makhoa and lop.makhoa = khoa.id";
-	$result = mysqli_query($link, $sql);
+	 $sql = "select lop.id, malop,tenlop,tenkhoa,tennienkhoa from lop,nienkhoa,khoa where lop.nienkhoa= $nienkhoa and lop.makhoa = $makhoa and lop.makhoa = khoa.id";
+	$result = @mysqli_query($link, $sql);
 
-	while ($item = mysqli_fetch_assoc($result)) {
+	while ($item = @mysqli_fetch_assoc($result)) {
 		$items[] = $item;
 	}
 
@@ -131,14 +131,64 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 	  return false;
 	}
 }
-function getSubjectIntDepartment($makhoa,$nienkhoa,$malop){
+function getSubjectIntDepartment($malop){
 	global $link;
-	$sql = "select * from sinhvien where makhoa = '$makhoa' and nienkhoa = '$nienkhoa' and malop = '$malop'";
-	$result = mysqli_query($link, $sql);
+	$sql = "select * from sinhvien where malop = $malop";
+	$result = @mysqli_query($link, $sql);
 
-	while ($item = mysqli_fetch_assoc($result)) {
+	while ($item = @mysqli_fetch_assoc($result)) {
 		 $items[] = $item;
 	}
 
 	return isset($items) ? $items : [];
+}
+function updateStudent($masv,$hoten,$diachi,$ngaysinh,$gioitinh,$malop,$id){
+	global $link;
+	 $sql = "update  sinhvien set masv = '$masv' , hoten = '$hoten' , diachi = '$diachi', ngaysinh = '$ngaysinh' , gioitinh = '$gioitinh' , malop = $malop where id = $id";
+	 $result = mysqli_query($link, $sql);
+
+	while ($item = mysqli_fetch_assoc($result)) {
+		$items[] = $item;
+	}
+
+	return isset($items) ? $items : [];
+}
+
+
+function dbGet($sql)
+{
+	global $link;
+
+	$result = mysqli_query($link, $sql);
+
+	while ($item = mysqli_fetch_assoc($result)) {
+		$items[] = $item;
+	}
+
+	return isset($items) ? $items : [];
+}
+
+function dbExecute($sql)
+{
+	global $link;
+
+	return mysqli_query($link, $sql);
+}
+
+function dbCreateGetID($tableName, array $data)
+{
+	global $link;
+
+	foreach ($data as $k => $v) {
+		$columns[] = $k;
+		$values[] = "'$v'";
+	}
+
+	$columns = implode(',', $columns);
+	$values = implode(',', $values);
+
+	$sql = "insert into $tableName($columns) values($values)";
+	mysqli_query($link, $sql);
+
+	return mysqli_insert_id($link);
 }

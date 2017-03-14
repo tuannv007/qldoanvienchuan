@@ -28,7 +28,7 @@
             	</a>
 	        </li>
 	      	<li>
-	             <a href="<?php echo url('admin/index.php?module=targets&action=index'); ?>">
+	             <a href="<?php echo url('admin/index.php?module=doanphi&action=index'); ?>">
 	            	<i class="fa fa-edit fa-fw"></i> Quản Lý Đoàn Phí
             	</a>
 	        </li>

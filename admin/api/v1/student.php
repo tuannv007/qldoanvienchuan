@@ -1,10 +1,11 @@
-<?php
-include '../../../helpers/init.php';
-include '../../../helpers/app.php';
-include '../../../helpers/database.php';
+<?php 
+
+	include '../../../helpers/init.php';
+	include '../../../helpers/app.php';
+	include '../../../helpers/database.php';
 	
-	$makhoa = $_GET['makhoa'];
-	$sql = "select * from lop where makhoa = $makhoa";
+	$malop = $_GET['lop'];
+	$sql = "select * from sinhvien where malop = $malop";
 	$result = mysqli_query($link, $sql);
 	$data = [];
 	while ($item = mysqli_fetch_assoc($result)) {
